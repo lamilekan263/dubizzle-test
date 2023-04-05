@@ -11,21 +11,17 @@ import { fetchGist } from "./Redux/slice/gistSlice";
 import InfoComponent from "./components/InfoComponent";
 
 
-
-
-
 function App () {
 
-
-
-    const {loading, gistList } = useSelector((state) => state.gistList);
+  const {loading, gistList } = useSelector((state) => state.gistList);
  
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  // dispatching fetch gist
   useEffect(() => {
     dispatch(fetchGist())
   },[dispatch])
 
- 
 
   return (
     <Wrapper className="App" data-testid="app">

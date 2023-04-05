@@ -9,7 +9,7 @@ const initialState = {
     error: false,
 };
 
-
+// fetch all gist
 export const fetchGist = createAsyncThunk(
     'fetchGist',
     async () => {
@@ -25,6 +25,8 @@ export const fetchGist = createAsyncThunk(
     },
 );
 
+
+// fecth gist based on user
 export const fetchGistListForUser = createAsyncThunk(
     'filterNews',
     async (searchParams) => {
