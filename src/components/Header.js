@@ -1,15 +1,16 @@
-import React from 'react'
-import styled from 'styled-components'
-import Octicon from 'react-octicon'
-import Search from './Search';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Octicon from "react-octicon";
+import Search from "./Search";
 
-function Header() {
+function Header ({ onChange, value, filterGist }) {
   return (
     <Wrapper>
-      <Octicon name="mark-github" mega/>
-      <Search />
+      <Octicon name="mark-github" mega />
+      <Search filterGist={ filterGist } onChange={ onChange } value={ value } />
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -22,5 +23,10 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-
-export default Header
+// param type checking
+Header.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  filterGist: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
+export default Header;
