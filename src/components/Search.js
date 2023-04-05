@@ -1,24 +1,38 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Octicon from "react-octicon";
+import { useDispatch } from "react-redux";
+import { fetchGist, fetchGistListForUser } from "../Redux/slice/gistSlice";
 
-const Search = ({ filterGist, onChange, value }) => {
-  // on press enter filter gist by username
-  function filterList (e) {
+const Search = () => {
+  const [searchText, setSearchText] = useState('');
+
+  const dispatch = useDispatch();
+
+  function filterGist (e) {
+
     if (e.keyCode === 13) {
-      filterGist();
+      handleSearchHandler();
     }
   }
+  const handleSearchHandler = () => {
+    if (searchText === '') {
+      dispatch(fetchGist());
+    } else {
+      dispatch(fetchGistListForUser(searchText));
+    }
+  };
+
+
 
   return (
     <Wrapper>
       <InputBox>
         <Octicon name="search" />
         <Input
-          onKeyDown={ filterList }
-          value={ value }
-          onChange={ onChange }
+          onKeyDown={ filterGist }
+          value={ searchText }
+          onChange={ (e) => setSearchText(e.target.value) }
           placeholder="Search Gists for the username"
         />
       </InputBox>
@@ -50,9 +64,6 @@ const Input = styled.input`
     outline: 0;
   }
 `;
-Search.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  filterGist: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-};
+
+
 export default Search;

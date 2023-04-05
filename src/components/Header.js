@@ -4,11 +4,11 @@ import styled from "styled-components";
 import Octicon from "react-octicon";
 import Search from "./Search";
 
-function Header ({ onChange, value, filterGist }) {
+function Header () {
   return (
     <Wrapper>
       <Octicon name="mark-github" mega />
-      <Search filterGist={ filterGist } onChange={ onChange } value={ value } />
+      <Search  />
     </Wrapper>
   );
 }
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-// param type checking
+// param checking
 Header.propTypes = {
   onChange: PropTypes.func.isRequired,
   filterGist: PropTypes.func.isRequired,
