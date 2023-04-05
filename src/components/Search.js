@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Octicon from "react-octicon";
-
+import PropTypes from "prop-types";
 
 const Search = ({ handleSearch = () => { } }) => {
 
@@ -43,5 +43,8 @@ const Input = styled.input`
   }
 `;
 
+Search.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
 
+};
 export default Search;
