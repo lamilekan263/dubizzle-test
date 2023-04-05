@@ -7,12 +7,14 @@ import GistList from "./components/GistList";
 import Header from "./components/Header";
 import GlobalStyles from "./GlobalStyle";
 
-import { fetchGist } from "./Redux/slice/gistSlice";
+import { fetchGist, fetchGistListForUser } from "./Redux/slice/gistSlice";
 import InfoComponent from "./components/InfoComponent";
+import _ from "lodash";
 
 
 function App () {
 
+  // gist list data
   const {loading, gistList } = useSelector((state) => state.gistList);
  
   const dispatch = useDispatch();
@@ -23,9 +25,28 @@ function App () {
   },[dispatch])
 
 
+  // create a debounce while on pressing each letters
+  const delayedQuery = _.debounce(q => dispatch(fetchGistListForUser(q)), 500, {
+    trailing:true
+  });
+
+// handle user search input that dispatch the fetchGist
+  const handleSearch = async (e) => {
+    const { value } = e.target;
+    try {
+      if (value === '') {
+        dispatch(fetchGist());
+      } else {
+        delayedQuery(value);
+      }
+      
+    } catch (err) { console.log("err"); }
+  };
+
   return (
     <Wrapper className="App" data-testid="app">
       <Header
+        handleSearch={handleSearch}
       />
       { loading ? (
        <InfoComponent textLabel="Loading..."/>
